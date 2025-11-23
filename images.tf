@@ -1,7 +1,7 @@
 resource "docker_image" "vote" {
   name = "voting-app-vote:latest"
   build {
-    context    = "./voting-service/vote"
+    context    = "./voting-services/vote"
     dockerfile = "Dockerfile"
   }
 }
@@ -9,7 +9,7 @@ resource "docker_image" "vote" {
 resource "docker_image" "result" {
   name = "voting-app-result:latest"
   build {
-    context    = "./voting-service/result"
+    context    = "./voting-services/result"
     dockerfile = "Dockerfile"
   }
 }
@@ -17,7 +17,7 @@ resource "docker_image" "result" {
 resource "docker_image" "worker" {
   name = "voting-app-worker:latest"
   build {
-    context    = "./voting-service/worker"
+    context    = "./voting-services/worker"
     dockerfile = "Dockerfile"
   }
 }
@@ -33,7 +33,7 @@ resource "docker_image" "db" {
 resource "docker_image" "nginx" {
   name = "voting-app-nginx:latest"
   build {
-    context    = "./voting-service/nginx"
+    context    = "./voting-services/nginx"
     dockerfile = "Dockerfile"
   }
 }
@@ -41,7 +41,7 @@ resource "docker_image" "nginx" {
 resource "docker_image" "seed" {
   name = "voting-app-seed:latest"
   build {
-    context    = "./voting-service/seed"
+    context    = "./voting-services/seed"
     dockerfile = "Dockerfile"
   }
 }
