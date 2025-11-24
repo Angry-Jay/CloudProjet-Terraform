@@ -41,7 +41,7 @@ resource "docker_image" "nginx" {
 resource "docker_image" "seed" {
   name = "voting-app-seed:latest"
   build {
-    context    = "./voting-services/seed"
+    context    = "./voting-services/seed-data"
     dockerfile = "Dockerfile"
   }
 }
