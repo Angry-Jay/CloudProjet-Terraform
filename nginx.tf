@@ -8,7 +8,8 @@ resource "docker_container" "nginx" {
   }
 
   networks_advanced {
-    name = docker_network.front_tier.name
+    name    = docker_network.front_tier.name
+    aliases = ["nginx"]
   }
 
   depends_on = [
