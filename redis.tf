@@ -15,4 +15,9 @@ resource "docker_container" "redis" {
   }
 
   restart = "on-failure"
+
+  networks_advanced {
+    name = docker_network.back_tier.name
+    aliases = ["redis"]
+  }
 }

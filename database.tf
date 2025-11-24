@@ -24,4 +24,9 @@ resource "docker_container" "db" {
   }
 
   restart = "on-failure"
+
+  networks_advanced {
+    name = docker_network.back_tier.name
+    aliases = ["db"]
+  }
 }
