@@ -35,6 +35,12 @@ variable "redis_password" {
   default     = "change-me-in-production"
 }
 
+variable "ssh_private_key_path" {
+  description = "Path to SSH private key for connecting to the VM"
+  type        = string
+  default     = "~/.ssh/id_rsa_cloud"
+}
+
 resource "proxmox_vm_qemu" "redis_vm" {
 
   name = "vm-redis-m23kitso"
@@ -49,7 +55,7 @@ resource "proxmox_vm_qemu" "redis_vm" {
   # cipassword = "iole"
   sshkeys = file(var.ssh_key_path)
 
-  
+
 
   cpu {
     cores = 1
@@ -88,6 +94,35 @@ resource "proxmox_vm_qemu" "redis_vm" {
         }
       }
     }
+  }
+
+  # SSH connection configuration for provisioners
+  connection {
+    type        = "ssh"
+    user        = "m23kitso"
+    private_key = file(var.ssh_private_key_path)
+    host        = var.vm_ip
+    timeout     = "5m"
+  }
+
+  # Automatically install and configure Redis on VM creation
+  provisioner "remote-exec" {
+    inline = [
+      # Wait for cloud-init to complete
+      "cloud-init status --wait",
+      # Update package lists
+      "sudo apt-get update -q",
+      # Install Redis
+      "sudo DEBIAN_FRONTEND=noninteractive apt-get install -q -y redis",
+      # Configure Redis to accept connections from all IPs
+      "sudo sed -e '/^bind/s/bind.*/bind 0.0.0.0/' -i /etc/redis/redis.conf",
+      # Set Redis password
+      "sudo sed -e '/# requirepass/s/.*/requirepass ${var.redis_password}/' -i /etc/redis/redis.conf",
+      # Restart Redis to apply configuration
+      "sudo systemctl restart redis-server.service",
+      # Verify Redis is running
+      "sudo systemctl is-active redis-server.service"
+    ]
   }
 
 }
