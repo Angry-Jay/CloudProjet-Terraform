@@ -4,7 +4,7 @@ metadata:
   labels:
     app: result
   name: result-deplt
-  namespace: xyz
+  namespace: j23zebia
 spec:
   replicas: 1
   selector:

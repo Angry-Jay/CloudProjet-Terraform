@@ -4,7 +4,7 @@ metadata:
   labels:
     app: pgsql
   name: pgsql-deplt
-  namespace: xyz
+  namespace: j23zebia
 spec:
   replicas: 1
   selector:
@@ -27,9 +27,9 @@ spec:
       - name: source
         emptyDir: {}
       - name: db-data
-        # emptyDir: {}
-        persistentVolumeClaim:
-          claimName: db-data-claim
+        emptyDir: {}
+        # persistentVolumeClaim:
+        #   claimName: db-data-claim
       containers:
       - image: postgres:15-alpine
       # - image: eloip13009/postgres-hc

@@ -4,16 +4,11 @@ metadata:
   labels:
     app: redis
   name: redis
-  namespace: xyz
+  namespace: j23zebia
 spec:
-  # Do not set a type for headless a service
-  type: NodePort
+  clusterIP: None
   ports:
   - name: redis-svc-port
     port: 6379
     targetPort: 6379
-    # nodePort: 0
     protocol: TCP
-  # Do not select anything if Redis is on offloaded, the 'redis' Endpoint will take over
-  selector:
-    app: redis

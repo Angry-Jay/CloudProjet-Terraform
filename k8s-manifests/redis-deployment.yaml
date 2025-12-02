@@ -4,7 +4,7 @@ metadata:
   labels:
     app: redis
   name: redis-deplt
-  namespace: xyz
+  namespace: j23zebia
 spec:
   replicas: 1
   selector:

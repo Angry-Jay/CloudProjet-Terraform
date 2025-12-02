@@ -4,7 +4,7 @@ metadata:
   labels:
     app: vote
   name: vote-deplt
-  namespace: xyz
+  namespace: j23zebia
 spec:
   replicas: 1
   selector:
@@ -22,6 +22,13 @@ spec:
       # - image: vote
         # imagePullPolicy: Never
         name: vote-container
+        env:
+        - name: REDIS_HOST
+          value: "redis"
+        - name: REDIS_PORT
+          value: "6379"
+        - name: REDIS_PASSWORD
+          value: "notForProd"
         ports:
         - containerPort: 5000
           name: vote-port
