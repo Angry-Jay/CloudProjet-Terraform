@@ -98,7 +98,7 @@ At first, add your password manually in the script, and execute it directly in t
 
 Deploy the application ; debug ; repeat, until it works.
 
-### Automatic installation
+### Optional - Automatic installation
 
 We would like to use Terraform as a source of truth for our whole infrastructure and application.
 There are multiple solutions to install Redis in the VM:
